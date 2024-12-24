@@ -1,4 +1,5 @@
 #include "game.h"
+#include "raylib.h"
 #include "globals.h"
 
 Game::Game() : Component()
@@ -11,22 +12,31 @@ Game::Game() : Component()
     Globals::gameWidth = 1400;
     Globals::gameHeight = 1000;
     Globals::laserManager = &laserManager;
+    Globals::soundManager = &soundManager;
+    Globals::player = &player;
 }
 
 void Game::Load()
 {
     canvas = LoadRenderTexture(Globals::canvasWidth, Globals::canvasHeight);
     gameCanvas = LoadRenderTexture(Globals::gameWidth, Globals::gameHeight);
+
+    menu.Load();
     player.Load();
     laserManager.Load();
+    soundManager.Load();
+    stars.Load();
 }
 
 void Game::UnLoad()
 {
     UnloadRenderTexture(canvas);
     UnloadRenderTexture(gameCanvas);
+
+    menu.UnLoad();
     player.UnLoad();
     laserManager.UnLoad();
+    soundManager.UnLoad();
 }
 
 void Game::Update()
@@ -36,8 +46,14 @@ void Game::Update()
         ResizeCanvas(GetScreenWidth(), GetScreenHeight());
     }
 
+    if (Globals::state == State::MENU)
+    {
+        menu.Update();
+    }
+
     player.Update();
     laserManager.Update();
+    stars.Update();
 }
 
 void Game::Draw()
@@ -45,6 +61,12 @@ void Game::Draw()
     BeginTextureMode(gameCanvas);
     ClearBackground(BLACK);
     DrawRectangleLinesEx({0, 0, (float)Globals::gameWidth, (float)Globals::gameHeight}, 2, WHITE);
+    stars.Draw();
+    if (Globals::state == State::MENU)
+    {
+        menu.Draw();
+    }
+
     player.Draw();
     laserManager.Draw();
     EndTextureMode();

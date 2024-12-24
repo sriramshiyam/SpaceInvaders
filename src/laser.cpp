@@ -1,4 +1,5 @@
 #include "laser.h"
+#include "raylib.h"
 
 Rectangle Laser::GetRectangle()
 {

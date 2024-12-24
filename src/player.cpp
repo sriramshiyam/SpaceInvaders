@@ -25,20 +25,20 @@ void Player::UnLoad()
 
 void Player::Update()
 {
-    if (IsKeyDown(KEY_RIGHT))
+    if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
     {
         stopped = false;
         position.x += speed * GetFrameTime();
         direction = 1;
     }
-    else if (IsKeyDown(KEY_LEFT))
+    else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
     {
         stopped = false;
         position.x -= speed * GetFrameTime();
         direction = -1;
     }
 
-    if (IsKeyReleased(KEY_RIGHT) || IsKeyReleased(KEY_LEFT))
+    if (IsKeyReleased(KEY_D) || IsKeyReleased(KEY_A) || IsKeyReleased(KEY_RIGHT) || IsKeyReleased(KEY_LEFT))
     {
         stopped = true;
         inertia = speed;
@@ -70,6 +70,7 @@ void Player::Update()
     {
         Globals::laserManager->AddPlayerLaser(GetRectangle());
         position.y += speed * 1.25f * GetFrameTime();
+        Globals::soundManager->PlayPlayerLaser();
     }
 
     HandleSpring();
@@ -91,6 +92,11 @@ void Player::Draw()
     Rectangle dest = {position.x, position.y, texture.width * 4, texture.height * 4};
     DrawTexturePro(texture, sourceTex, dest, {(float)texture.width * 4 / 2, (float)texture.height * 4 / 2}, 0, WHITE);
     // DrawRectangleLines(position.x - texture.width * 4 / 2, position.y - texture.height * 4 / 2, texture.width * 4, texture.height * 4, WHITE);
+}
+
+int Player::MovingDirection()
+{
+    return direction;
 }
 
 Rectangle Player::GetRectangle()

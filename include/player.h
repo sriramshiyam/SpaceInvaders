@@ -35,5 +35,6 @@ public:
     void UnLoad() override;
     void Update() override;
     void Draw() override;
+    int MovingDirection();
     Rectangle GetRectangle();
 };

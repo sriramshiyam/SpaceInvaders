@@ -1,6 +1,6 @@
 #include "lasermanager.h"
+#include "raylib.h"
 #include "raymath.h"
-#include "iostream"
 
 void LaserManager::Load()
 {
@@ -27,8 +27,6 @@ void LaserManager::Update()
             playerLasers.erase(playerLasers.begin() + i);
         }
     }
-
-    std::cout << playerLasers.size() << std::endl;
 }
 
 void LaserManager::Draw()
@@ -48,7 +46,7 @@ void LaserManager::AddPlayerLaser(Rectangle playerRect)
 
     laser.SetSize(size);
     laser.SetPosition(position);
-    laser.SetVelocity({0.0, -1000.0f});
+    laser.SetVelocity({0.0, -1250.0f});
 
     playerLasers.push_back(laser);
 }

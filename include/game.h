@@ -3,6 +3,9 @@
 #include "component.h"
 #include "player.h"
 #include "lasermanager.h"
+#include "soundmanager.h"
+#include "stars.h"
+#include "menu.h"
 
 class Game : public Component
 {
@@ -14,7 +17,11 @@ private:
     Rectangle canvasDest;
     void ResizeCanvas(int screenWidth, int screenHeight);
 
+    Menu menu;
+
     LaserManager laserManager;
+    SoundManager soundManager;
+    Stars stars;
     Player player;
 
 public:
