@@ -13,6 +13,12 @@ void Menu::UnLoad()
 
 void Menu::Update()
 {
+    if (IsKeyPressed(KEY_ENTER))
+    {
+        Globals::state = State::GAME;
+        Globals::soundManager->StopMenuMusic();
+        Globals::soundManager->PlayGameMusic();
+    }
 }
 
 void Menu::Draw()

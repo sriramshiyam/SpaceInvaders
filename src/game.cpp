@@ -21,6 +21,7 @@ void Game::Load()
     canvas = LoadRenderTexture(Globals::canvasWidth, Globals::canvasHeight);
     gameCanvas = LoadRenderTexture(Globals::gameWidth, Globals::gameHeight);
 
+    splashScreen.Load();
     menu.Load();
     player.Load();
     laserManager.Load();
@@ -33,6 +34,7 @@ void Game::UnLoad()
     UnloadRenderTexture(canvas);
     UnloadRenderTexture(gameCanvas);
 
+    splashScreen.UnLoad();
     menu.UnLoad();
     player.UnLoad();
     laserManager.UnLoad();
@@ -41,43 +43,64 @@ void Game::UnLoad()
 
 void Game::Update()
 {
+    soundManager.UpdateCurrentMusicStream();
     if (GetScreenWidth() != previousWindowWidth || GetScreenHeight() != previousWindowHeight)
     {
         ResizeCanvas(GetScreenWidth(), GetScreenHeight());
     }
 
-    if (Globals::state == State::MENU)
+    if (Globals::state == State::SPLASH_SCREEN)
     {
-        menu.Update();
+        splashScreen.Update();
     }
+    else
+    {
+        if (Globals::state == State::MENU)
+        {
+            menu.Update();
+        }
 
-    player.Update();
-    laserManager.Update();
-    stars.Update();
+        player.Update();
+        laserManager.Update();
+        stars.Update();
+    }
 }
 
 void Game::Draw()
 {
-    BeginTextureMode(gameCanvas);
-    ClearBackground(BLACK);
-    DrawRectangleLinesEx({0, 0, (float)Globals::gameWidth, (float)Globals::gameHeight}, 2, WHITE);
-    stars.Draw();
-    if (Globals::state == State::MENU)
+    LOG(Globals::state);
+    if (Globals::state != State::SPLASH_SCREEN)
     {
-        menu.Draw();
+        BeginTextureMode(gameCanvas);
+        ClearBackground(BLACK);
+
+        DrawRectangleLinesEx({0, 0, (float)Globals::gameWidth, (float)Globals::gameHeight}, 2, WHITE);
+        stars.Draw();
+
+        if (Globals::state == State::MENU)
+        {
+            menu.Draw();
+        }
+
+        player.Draw();
+        laserManager.Draw();
+
+        EndTextureMode();
     }
 
-    player.Draw();
-    laserManager.Draw();
-    EndTextureMode();
-
-    Rectangle gameCanvasSource = {0.0f, 0.0f, (float)gameCanvas.texture.width, -(float)gameCanvas.texture.height};
-    Rectangle gameCanvasDest = {(float)canvas.texture.width / 2 - (float)gameCanvas.texture.width / 2, 40.0f, (float)gameCanvas.texture.width, (float)gameCanvas.texture.height};
-
     BeginTextureMode(canvas);
-    ClearBackground((Color){7, 71, 153, 255});
-    DrawTexturePro(gameCanvas.texture, gameCanvasSource, gameCanvasDest, (Vector2){0, 0}, 0.0f, WHITE);
-
+    if (Globals::state == State::SPLASH_SCREEN)
+    {
+        ClearBackground((Color){39, 36, 37, 255});
+        splashScreen.Draw();
+    }
+    else
+    {
+        Rectangle gameCanvasSource = {0.0f, 0.0f, (float)gameCanvas.texture.width, -(float)gameCanvas.texture.height};
+        Rectangle gameCanvasDest = {(float)canvas.texture.width / 2 - (float)gameCanvas.texture.width / 2, 40.0f, (float)gameCanvas.texture.width, (float)gameCanvas.texture.height};
+        ClearBackground((Color){7, 71, 153, 255});
+        DrawTexturePro(gameCanvas.texture, gameCanvasSource, gameCanvasDest, (Vector2){0, 0}, 0.0f, WHITE);
+    }
     EndTextureMode();
 
     Rectangle canvasSource = {0.0f, 0.0f, (float)canvas.texture.width, -(float)canvas.texture.height};

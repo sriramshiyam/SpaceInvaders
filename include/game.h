@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "splashscreen.h"
 #include "component.h"
 #include "player.h"
 #include "lasermanager.h"
@@ -17,6 +18,7 @@ private:
     Rectangle canvasDest;
     void ResizeCanvas(int screenWidth, int screenHeight);
 
+    SplashScreen splashScreen;
     Menu menu;
 
     LaserManager laserManager;

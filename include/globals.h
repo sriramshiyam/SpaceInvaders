@@ -3,9 +3,13 @@
 #include "lasermanager.h"
 #include "soundmanager.h"
 #include "player.h"
+#include <iostream>
+
+#define LOG(x) std::cout << x << std::endl
 
 enum State
 {
+    SPLASH_SCREEN,
     MENU,
     GAME
 };
