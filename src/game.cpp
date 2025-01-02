@@ -1,6 +1,6 @@
-#include "game.h"
 #include "raylib.h"
-#include "globals.h"
+#include "state/game.h"
+#include "utils/globals.h"
 
 Game::Game() : Component()
 {
@@ -14,6 +14,7 @@ Game::Game() : Component()
     Globals::laserManager = &laserManager;
     Globals::soundManager = &soundManager;
     Globals::player = &player;
+    Globals::state = State::MENU;
 }
 
 void Game::Load()
@@ -23,6 +24,7 @@ void Game::Load()
 
     splashScreen.Load();
     menu.Load();
+    hud.Load();
     player.Load();
     laserManager.Load();
     soundManager.Load();
@@ -36,6 +38,7 @@ void Game::UnLoad()
 
     splashScreen.UnLoad();
     menu.UnLoad();
+    hud.UnLoad();
     player.UnLoad();
     laserManager.UnLoad();
     soundManager.UnLoad();
@@ -55,20 +58,23 @@ void Game::Update()
     }
     else
     {
+        player.Update();
+        laserManager.Update();
+        stars.Update();
+
         if (Globals::state == State::MENU)
         {
             menu.Update();
         }
-
-        player.Update();
-        laserManager.Update();
-        stars.Update();
+        else if (Globals::state == State::GAME)
+        {
+            hud.Update();
+        }
     }
 }
 
 void Game::Draw()
 {
-    LOG(Globals::state);
     if (Globals::state != State::SPLASH_SCREEN)
     {
         BeginTextureMode(gameCanvas);
@@ -76,15 +82,13 @@ void Game::Draw()
 
         DrawRectangleLinesEx({0, 0, (float)Globals::gameWidth, (float)Globals::gameHeight}, 2, WHITE);
         stars.Draw();
+        player.Draw();
+        laserManager.Draw();
 
         if (Globals::state == State::MENU)
         {
             menu.Draw();
         }
-
-        player.Draw();
-        laserManager.Draw();
-
         EndTextureMode();
     }
 
@@ -101,6 +105,12 @@ void Game::Draw()
         ClearBackground((Color){7, 71, 153, 255});
         DrawTexturePro(gameCanvas.texture, gameCanvasSource, gameCanvasDest, (Vector2){0, 0}, 0.0f, WHITE);
     }
+
+    if (Globals::state == State::GAME)
+    {
+        hud.Draw();
+    }
+
     EndTextureMode();
 
     Rectangle canvasSource = {0.0f, 0.0f, (float)canvas.texture.width, -(float)canvas.texture.height};

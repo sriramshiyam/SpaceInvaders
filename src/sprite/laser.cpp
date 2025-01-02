@@ -1,5 +1,5 @@
-#include "laser.h"
 #include "raylib.h"
+#include "sprite/laser.h"
 
 Rectangle Laser::GetRectangle()
 {

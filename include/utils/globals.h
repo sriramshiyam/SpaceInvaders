@@ -1,9 +1,9 @@
 #pragma once
 
-#include "lasermanager.h"
-#include "soundmanager.h"
-#include "player.h"
 #include <iostream>
+#include "manager/lasermanager.h"
+#include "manager/soundmanager.h"
+#include "sprite/player.h"
 
 #define LOG(x) std::cout << x << std::endl
 

@@ -1,13 +1,13 @@
-#include "soundmanager.h"
 #include "raylib.h"
-#include "globals.h"
+#include "manager/soundmanager.h"
+#include "utils/globals.h"
 
 void SoundManager::Load()
 {
-    playerLaser = LoadSound("res/player_laser.wav");
-    menuMusic = LoadMusicStream("res/menu.xm");
+    playerLaser = LoadSound("res/audio/player_laser.wav");
+    menuMusic = LoadMusicStream("res/audio/menu.xm");
     menuMusic.looping = true;
-    gameMusic = LoadMusicStream("res/music.xm");
+    gameMusic = LoadMusicStream("res/audio/music.xm");
     gameMusic.looping = true;
 }
 

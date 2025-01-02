@@ -1,7 +1,7 @@
 #pragma once
 
 #include "raylib.h"
-#include "component.h"
+#include "utils/component.h"
 
 class Menu : public Component
 {

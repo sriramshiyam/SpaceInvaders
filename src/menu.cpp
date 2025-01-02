@@ -1,9 +1,9 @@
 #include "menu.h"
-#include "globals.h"
+#include "utils/globals.h"
 
 void Menu::Load()
 {
-    font = LoadFont("res/Vipnagorgialla_Bd.otf");
+    font = LoadFont("res/font/Vipnagorgialla_Bd.otf");
 }
 
 void Menu::UnLoad()

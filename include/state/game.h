@@ -1,13 +1,13 @@
 #pragma once
 
 #include "raylib.h"
-#include "ui/splashscreen.h"
-#include "utils/component.h"
-#include "sprite/player.h"
 #include "manager/lasermanager.h"
 #include "manager/soundmanager.h"
-#include "sprite/stars.h"
+#include "ui/splashscreen.h"
 #include "ui/hud.h"
+#include "sprite/stars.h"
+#include "sprite/player.h"
+#include "utils/component.h"
 #include "menu.h"
 
 class Game : public Component

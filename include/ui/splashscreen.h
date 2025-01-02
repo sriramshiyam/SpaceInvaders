@@ -1,8 +1,8 @@
 #pragma once
 
-#include "raylib.h"
-#include "component.h"
 #include <string>
+#include "raylib.h"
+#include "utils/component.h"
 
 class SplashScreen : public Component
 {

@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "globals.h"
+#include "utils/globals.h"
 #include "game.h"
 
 int Globals::canvasWidth = 0;

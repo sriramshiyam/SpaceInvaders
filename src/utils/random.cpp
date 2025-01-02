@@ -1,5 +1,5 @@
-#include "random.h"
 #include <random>
+#include "utils/random.h"
 
 float Random::GetRandomFloat(float min, float max)
 {

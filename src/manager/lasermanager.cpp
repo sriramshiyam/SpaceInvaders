@@ -1,10 +1,10 @@
-#include "lasermanager.h"
 #include "raylib.h"
 #include "raymath.h"
+#include "manager/lasermanager.h"
 
 void LaserManager::Load()
 {
-    playerLaserTex = LoadTexture("res/player_laser.png");
+    playerLaserTex = LoadTexture("res/sprite/player_laser.png");
 }
 
 void LaserManager::UnLoad()

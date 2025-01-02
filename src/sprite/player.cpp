@@ -1,6 +1,6 @@
-#include "player.h"
 #include "raylib.h"
-#include "globals.h"
+#include "sprite/player.h"
+#include "utils/globals.h"
 
 Player::Player()
 {
@@ -11,7 +11,7 @@ Player::Player()
 
 void Player::Load()
 {
-    texture = LoadTexture("res/player.png");
+    texture = LoadTexture("res/sprite/player.png");
 
     sourceTex = {0, 0, (float)texture.width, (float)texture.height};
     position = {(float)Globals::gameWidth / 2, (float)Globals::gameHeight - texture.height * 4 - 20};

@@ -2,9 +2,9 @@
 
 #include <vector>
 #include "raylib.h"
-#include "component.h"
-#include "player.h"
-#include "laser.h"
+#include "utils/component.h"
+#include "sprite/player.h"
+#include "sprite/laser.h"
 
 class LaserManager : public Component
 {

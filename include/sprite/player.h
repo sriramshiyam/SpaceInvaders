@@ -1,15 +1,8 @@
 #pragma once
-#include "component.h"
-#include "raylib.h"
 
-typedef struct Spring
-{
-    int restLength;
-    float damping;
-    float velocity;
-    float force;
-    float k;
-} Spring;
+#include "raylib.h"
+#include "utils/spring.h"
+#include "utils/component.h"
 
 class Player : public Component
 {

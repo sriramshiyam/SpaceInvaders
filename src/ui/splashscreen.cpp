@@ -1,6 +1,6 @@
-#include "splashscreen.h"
-#include "globals.h"
 #include "iostream"
+#include "ui/splashscreen.h"
+#include "utils/globals.h"
 
 SplashScreen::SplashScreen()
 {
@@ -9,7 +9,7 @@ SplashScreen::SplashScreen()
 
 void SplashScreen::Load()
 {
-    font = LoadFont("res/Vipnagorgialla_Bd.otf");
+    font = LoadFont("res/font/Vipnagorgialla_Bd.otf");
 }
 
 void SplashScreen::UnLoad()
@@ -19,8 +19,8 @@ void SplashScreen::UnLoad()
 
 void SplashScreen::Update()
 {
-    alpha -= 0.4f * GetFrameTime();
-    if (alpha < 0.0f)
+    alpha -= 0.5f * GetFrameTime();
+    if (alpha < -0.2f)
     {
         Globals::state = State::MENU;
         Globals::soundManager->PlayMenuMusic();

@@ -1,7 +1,7 @@
-#include "stars.h"
 #include "raylib.h"
-#include "globals.h"
-#include "random.h"
+#include "sprite/stars.h"
+#include "utils/globals.h"
+#include "utils/random.h"
 
 Stars::Stars()
 {
