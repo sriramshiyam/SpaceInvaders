@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "state/game.h"
+#include "game.h"
 #include "utils/globals.h"
 
 Game::Game() : Component()
@@ -13,6 +13,7 @@ Game::Game() : Component()
     Globals::gameHeight = 1000;
     Globals::laserManager = &laserManager;
     Globals::soundManager = &soundManager;
+    Globals::enemyManager = &enemyManager;
     Globals::player = &player;
     Globals::state = State::MENU;
 }
@@ -28,6 +29,7 @@ void Game::Load()
     player.Load();
     laserManager.Load();
     soundManager.Load();
+    enemyManager.Load();
     stars.Load();
 }
 
@@ -42,6 +44,7 @@ void Game::UnLoad()
     player.UnLoad();
     laserManager.UnLoad();
     soundManager.UnLoad();
+    enemyManager.UnLoad();
 }
 
 void Game::Update()
@@ -69,6 +72,7 @@ void Game::Update()
         else if (Globals::state == State::GAME)
         {
             hud.Update();
+            enemyManager.Update();
         }
     }
 }
@@ -89,10 +93,16 @@ void Game::Draw()
         {
             menu.Draw();
         }
+        else if (Globals::state == State::GAME)
+        {
+            enemyManager.Draw();
+        }
+
         EndTextureMode();
     }
 
     BeginTextureMode(canvas);
+    DrawFPS(0, 0);
     if (Globals::state == State::SPLASH_SCREEN)
     {
         ClearBackground((Color){39, 36, 37, 255});

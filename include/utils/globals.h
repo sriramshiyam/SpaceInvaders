@@ -3,6 +3,7 @@
 #include <iostream>
 #include "manager/lasermanager.h"
 #include "manager/soundmanager.h"
+#include "manager/enemymanager.h"
 #include "sprite/player.h"
 
 #define LOG(x) std::cout << x << std::endl
@@ -23,6 +24,7 @@ public:
     static int gameHeight;
     static LaserManager *laserManager;
     static SoundManager *soundManager;
+    static EnemyManager *enemyManager;
     static Player *player;
     static State state;
 };

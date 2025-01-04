@@ -6,6 +6,7 @@
 #include "sprite/player.h"
 #include "manager/lasermanager.h"
 #include "manager/soundmanager.h"
+#include "manager/enemymanager.h"
 #include "sprite/stars.h"
 #include "ui/hud.h"
 #include "menu.h"
@@ -26,6 +27,7 @@ private:
     Hud hud;
     LaserManager laserManager;
     SoundManager soundManager;
+    EnemyManager enemyManager;
     Stars stars;
     Player player;
 

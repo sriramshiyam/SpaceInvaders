@@ -9,6 +9,7 @@ int Globals::gameHeight = 0;
 State Globals::state = State::SPLASH_SCREEN;
 LaserManager *Globals::laserManager = nullptr;
 SoundManager *Globals::soundManager = nullptr;
+EnemyManager *Globals::enemyManager = nullptr;
 Player *Globals::player = nullptr;
 
 int main(void)

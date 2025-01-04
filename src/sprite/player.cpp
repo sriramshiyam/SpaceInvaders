@@ -5,8 +5,8 @@
 Player::Player()
 {
     speed = 1000.0f;
-    spring.k = 0.1f;
-    spring.damping = 0.6f;
+    jumpSpring.k = 0.1f;
+    jumpSpring.damping = 0.6f;
 }
 
 void Player::Load()
@@ -15,7 +15,7 @@ void Player::Load()
 
     sourceTex = {0, 0, (float)texture.width, (float)texture.height};
     position = {(float)Globals::gameWidth / 2, (float)Globals::gameHeight - texture.height * 4 - 20};
-    spring.restLength = Globals::gameHeight - texture.height * 4 - 20;
+    jumpSpring.restLength = Globals::gameHeight - texture.height * 4 - 20;
 }
 
 void Player::UnLoad()
@@ -27,34 +27,13 @@ void Player::Update()
 {
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
     {
-        stopped = false;
         position.x += speed * GetFrameTime();
         direction = 1;
     }
     else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
     {
-        stopped = false;
         position.x -= speed * GetFrameTime();
         direction = -1;
-    }
-
-    if (IsKeyReleased(KEY_D) || IsKeyReleased(KEY_A) || IsKeyReleased(KEY_RIGHT) || IsKeyReleased(KEY_LEFT))
-    {
-        stopped = true;
-        inertia = speed;
-        inertiaDec = 1;
-    }
-
-    if (stopped)
-    {
-        position.x += direction * inertia * GetFrameTime();
-        inertiaDec = inertiaDec * 2 + 1;
-        inertia -= inertiaDec;
-
-        if (inertia <= 0.0f)
-        {
-            stopped = false;
-        }
     }
 
     if (position.x < 100.0f)
@@ -73,18 +52,18 @@ void Player::Update()
         Globals::soundManager->PlayPlayerLaser();
     }
 
-    HandleSpring();
+    HandleJumpSpring();
 }
 
-void Player::HandleSpring()
+void Player::HandleJumpSpring()
 {
-    float x = position.y - spring.restLength;
-    spring.force = -spring.k * x;
+    float x = position.y - jumpSpring.restLength;
+    jumpSpring.force = -jumpSpring.k * x;
 
-    spring.velocity += spring.force;
-    position.y += spring.velocity;
+    jumpSpring.velocity += jumpSpring.force;
+    position.y += jumpSpring.velocity;
 
-    spring.velocity *= spring.damping;
+    jumpSpring.velocity *= jumpSpring.damping;
 }
 
 void Player::Draw()

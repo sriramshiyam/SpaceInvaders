@@ -6,6 +6,11 @@ Rectangle Laser::GetRectangle()
     return (Rectangle){position.x, position.y, size.x, size.y};
 }
 
+Laser::Laser()
+{
+    isDestroyed = false;
+}
+
 void Laser::SetPosition(Vector2 position)
 {
     this->position = position;
@@ -34,4 +39,14 @@ Vector2 Laser::GetSize()
 Vector2 Laser::GetVelocity()
 {
     return velocity;
+}
+
+bool Laser::GetIsDestroyed()
+{
+    return isDestroyed;
+}
+
+void Laser::SetIsDestroyed(bool isDestroyed)
+{
+    this->isDestroyed = isDestroyed;
 }

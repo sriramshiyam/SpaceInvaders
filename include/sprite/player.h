@@ -11,16 +11,13 @@ private:
     Rectangle sourceTex;
     Vector2 position;
 
-    Spring spring;
+    Spring jumpSpring;
 
     float speed;
 
-    float inertia;
-    int inertiaDec;
     int direction;
-    bool stopped;
 
-    void HandleSpring();
+    void HandleJumpSpring();
 
 public:
     Player();
