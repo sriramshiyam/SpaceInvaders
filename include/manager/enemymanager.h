@@ -10,7 +10,10 @@ class EnemyManager : public Component
 {
 
 private:
-    Texture texture;
+    Texture texture1;
+    Texture texture2;
+    Texture texture3;
+    Texture texture4;
     std::vector<Enemy> enemies;
     float spawnTimer;
     int spawnLength;

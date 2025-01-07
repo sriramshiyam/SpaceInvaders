@@ -81,3 +81,13 @@ void Enemy::SetIsLast(bool isLast)
 {
     this->isLast = isLast;
 }
+
+int Enemy::GetEnemyNumber()
+{
+    return enemyNumber;
+}
+
+void Enemy::SetEnemyNumber(int enemyNumber)
+{
+    this->enemyNumber = enemyNumber;
+}

@@ -11,6 +11,7 @@ private:
     std::vector<Combo> combos;
     int comboNumber;
     float comboTimer;
+    Font font;
 
 public:
     ComboManager();
@@ -19,5 +20,5 @@ public:
     void Update() override;
     void Draw() override;
     void AddCombo(Vector2 enemyPosition);
-    // void
+    void DrawComboTextures();
 };

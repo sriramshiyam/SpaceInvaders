@@ -12,6 +12,7 @@ private:
     bool isDestroyed;
     bool isSpawned;
     bool isLast;
+    int enemyNumber;
 
 public:
     Enemy();
@@ -30,4 +31,6 @@ public:
     void SetIsSpawned(bool isSpawned);
     bool GetIsLast();
     void SetIsLast(bool isLast);
+    int GetEnemyNumber();
+    void SetEnemyNumber(int enemyNumber);
 };

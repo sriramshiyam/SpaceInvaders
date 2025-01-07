@@ -14,6 +14,7 @@ Game::Game() : Component()
     Globals::laserManager = &laserManager;
     Globals::soundManager = &soundManager;
     Globals::enemyManager = &enemyManager;
+    Globals::comboManager = &comboManager;
     Globals::player = &player;
     Globals::state = State::MENU;
 }
@@ -30,6 +31,7 @@ void Game::Load()
     laserManager.Load();
     soundManager.Load();
     enemyManager.Load();
+    comboManager.Load();
     stars.Load();
 }
 
@@ -45,6 +47,7 @@ void Game::UnLoad()
     laserManager.UnLoad();
     soundManager.UnLoad();
     enemyManager.UnLoad();
+    comboManager.UnLoad();
 }
 
 void Game::Update()
@@ -73,6 +76,7 @@ void Game::Update()
         {
             hud.Update();
             enemyManager.Update();
+            comboManager.Update();
         }
     }
 }
@@ -81,8 +85,14 @@ void Game::Draw()
 {
     if (Globals::state != State::SPLASH_SCREEN)
     {
+        if (Globals::state == State::GAME)
+        {
+            comboManager.DrawComboTextures();
+        }
+
         BeginTextureMode(gameCanvas);
         ClearBackground(BLACK);
+        DrawFPS(5, 5);
 
         DrawRectangleLinesEx({0, 0, (float)Globals::gameWidth, (float)Globals::gameHeight}, 2, WHITE);
         stars.Draw();
@@ -96,13 +106,13 @@ void Game::Draw()
         else if (Globals::state == State::GAME)
         {
             enemyManager.Draw();
+            comboManager.Draw();
         }
 
         EndTextureMode();
     }
 
     BeginTextureMode(canvas);
-    DrawFPS(0, 0);
     if (Globals::state == State::SPLASH_SCREEN)
     {
         ClearBackground((Color){39, 36, 37, 255});

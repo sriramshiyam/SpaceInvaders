@@ -7,6 +7,7 @@
 #include "manager/lasermanager.h"
 #include "manager/soundmanager.h"
 #include "manager/enemymanager.h"
+#include "manager/combomanager.h"
 #include "sprite/stars.h"
 #include "ui/hud.h"
 #include "menu.h"
@@ -28,6 +29,7 @@ private:
     LaserManager laserManager;
     SoundManager soundManager;
     EnemyManager enemyManager;
+    ComboManager comboManager;
     Stars stars;
     Player player;
 

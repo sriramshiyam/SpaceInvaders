@@ -66,6 +66,7 @@ void LaserManager::Update()
     {
         if ((*it).GetIsDestroyed())
         {
+            Globals::comboManager->AddCombo((*it).GetPosition());
             it = enemies->erase(it);
         }
         else

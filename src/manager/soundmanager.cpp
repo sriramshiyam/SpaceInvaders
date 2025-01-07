@@ -5,9 +5,10 @@
 void SoundManager::Load()
 {
     playerLaser = LoadSound("res/audio/player_laser.wav");
-    menuMusic = LoadMusicStream("res/audio/menu.xm");
+    SetSoundVolume(playerLaser, 0.5f);
+    menuMusic = LoadMusicStream("res/audio/menu.mp3");
     menuMusic.looping = true;
-    gameMusic = LoadMusicStream("res/audio/music.xm");
+    gameMusic = LoadMusicStream("res/audio/game.mp3");
     gameMusic.looping = true;
 }
 

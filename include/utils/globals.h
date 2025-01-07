@@ -4,6 +4,7 @@
 #include "manager/lasermanager.h"
 #include "manager/soundmanager.h"
 #include "manager/enemymanager.h"
+#include "manager/combomanager.h"
 #include "sprite/player.h"
 
 #define LOG(x) std::cout << x << std::endl
@@ -25,6 +26,7 @@ public:
     static LaserManager *laserManager;
     static SoundManager *soundManager;
     static EnemyManager *enemyManager;
+    static ComboManager *comboManager;
     static Player *player;
     static State state;
 };
