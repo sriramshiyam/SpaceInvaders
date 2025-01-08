@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "utils/globals.h"
 #include "manager/enemymanager.h"
+#include "ui/hud.h"
 
 EnemyManager::EnemyManager()
 {
@@ -143,6 +144,9 @@ void EnemyManager::Draw()
 
 void EnemyManager::LoadEnemies()
 {
+    Hud *hud = reinterpret_cast<Hud *>(Globals::hud);
+
+    hud->SetWave(hud->GetWave() + 1);
     initializeValues();
 
     for (int y = 0; y < 5; y++)

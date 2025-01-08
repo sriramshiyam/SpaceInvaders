@@ -17,6 +17,7 @@ Game::Game() : Component()
     Globals::comboManager = &comboManager;
     Globals::player = &player;
     Globals::state = State::MENU;
+    Globals::hud = &hud;
 }
 
 void Game::Load()

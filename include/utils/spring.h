@@ -2,7 +2,7 @@
 
 typedef struct Spring
 {
-    int restLength;
+    double restLength;
     double damping;
     double velocity;
     double force;

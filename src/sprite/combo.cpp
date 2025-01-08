@@ -1,14 +1,19 @@
 #include "sprite/combo.h"
 #include "raymath.h"
-#include <string>
 #include "utils/globals.h"
+#include "utils/random.h"
+#include <string>
 
 Combo::Combo(int comboNumber) : comboNumber(comboNumber)
 {
     rotateSpring.k = 0.4f;
     rotateSpring.damping = 0.8f;
     rotateSpring.restLength = -20.0f;
+    rotateSpring.velocity = 0.0f;
     rotation = -60.0f;
+    restTimer = 0.2f;
+    scale = 1.0f;
+    colorChange = Random().GetRandomFloat(0.0f, 5.0f);
 }
 
 void Combo::HandleRotateSpring()
@@ -20,6 +25,20 @@ void Combo::HandleRotateSpring()
     rotation += rotateSpring.velocity;
 
     rotateSpring.velocity *= rotateSpring.damping;
+
+    if (rotation > -20.5f && rotation < -19.5f)
+    {
+        restTimer -= GetFrameTime();
+    }
+    else
+    {
+        restTimer = 0.2f;
+    }
+
+    if (restTimer < 0.0f)
+    {
+        scale -= GetFrameTime();
+    }
 }
 
 void Combo::Load()
@@ -80,16 +99,19 @@ void Combo::SetFont(Font font)
 
 void Combo::RenderComboTexture()
 {
+    colorChange += GetFrameTime() * 2;
+    Color comboBgColor = {sin(colorChange) * 255, -sin(colorChange) * 255, cos(colorChange) * 255, 255};
+
     BeginTextureMode(comboWordTexture);
     ClearBackground(ColorAlpha(BLACK, 0.0f));
-    DrawRectangleRounded((Rectangle){0, 0, comboWordTexture.texture.width, comboWordTexture.texture.height}, 0.5f, 8, WHITE);
+    DrawRectangleRounded((Rectangle){0, 0, comboWordTexture.texture.width, comboWordTexture.texture.height}, 0.5f, 8, comboBgColor);
     DrawTextEx(font, "COMBO", (Vector2){2, 0}, 20.0f, 3.0f, BLACK);
     EndTextureMode();
 
     std::string comboNumberText = comboNumber < 10 ? "X!" : "X!!";
     BeginTextureMode(comboNumberTexture);
     ClearBackground(ColorAlpha(BLACK, 0.0f));
-    DrawRectangleRounded((Rectangle){0, 0, comboNumberTexture.texture.width, comboNumberTexture.texture.height}, 0.5f, 8, WHITE);
+    DrawRectangleRounded((Rectangle){0, 0, comboNumberTexture.texture.width, comboNumberTexture.texture.height}, 0.5f, 8, comboBgColor);
     comboNumberText.insert(1, std::to_string(comboNumber));
     DrawTextEx(font, comboNumberText.c_str(), (Vector2){2, 0}, 20.0f, 3.0f, BLACK);
     EndTextureMode();
@@ -104,4 +126,14 @@ void Combo::RenderComboTexture()
 RenderTexture Combo::GetComboTexture()
 {
     return comboTexture;
+}
+
+float Combo::GetRestTimer()
+{
+    return restTimer;
+}
+
+float Combo::GetScale()
+{
+    return scale;
 }

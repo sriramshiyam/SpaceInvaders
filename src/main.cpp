@@ -12,13 +12,14 @@ SoundManager *Globals::soundManager = nullptr;
 EnemyManager *Globals::enemyManager = nullptr;
 ComboManager *Globals::comboManager = nullptr;
 Player *Globals::player = nullptr;
+void *Globals::hud = nullptr;
 
 int main(void)
 {
     const int screenWidth = 800;
     const int screenHeight = 600;
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Space Invaders");
     InitAudioDevice();
     MaximizeWindow();

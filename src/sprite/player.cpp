@@ -7,6 +7,8 @@ Player::Player()
     speed = 1000.0f;
     jumpSpring.k = 0.1f;
     jumpSpring.damping = 0.6f;
+    jumpSpring.velocity = 0.0f;
+    shootTimer = 0.0f;
 }
 
 void Player::Load()
@@ -45,8 +47,11 @@ void Player::Update()
         position.x = Globals::gameWidth - 100.0f;
     }
 
-    if (IsKeyPressed(KEY_SPACE))
+    shootTimer -= GetFrameTime();
+
+    if (IsKeyDown(KEY_SPACE) && shootTimer <= 0.0f)
     {
+        shootTimer = 0.16f;
         Globals::laserManager->AddPlayerLaser(GetRectangle());
         position.y += speed * 1.25f * GetFrameTime();
         Globals::soundManager->PlayPlayerLaser();

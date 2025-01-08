@@ -14,6 +14,9 @@ private:
     RenderTexture comboNumberTexture;
     RenderTexture comboTexture;
     Font font;
+    float restTimer;
+    float scale;
+    float colorChange;
 
 public:
     Combo(int comboNumber);
@@ -29,4 +32,6 @@ public:
     void SetFont(Font font);
     void RenderComboTexture();
     RenderTexture GetComboTexture();
+    float GetRestTimer();
+    float GetScale();
 };

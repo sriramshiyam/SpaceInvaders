@@ -9,6 +9,8 @@ private:
     Sound playerLaser;
     Music menuMusic;
     Music gameMusic;
+    Sound enemyDestroyed;
+    Sound combo;
 
 public:
     void Load();
@@ -19,4 +21,6 @@ public:
     void PlayGameMusic();
     void StopGameMusic();
     void UpdateCurrentMusicStream();
+    void PlayEnemyDestroyed();
+    void PlayCombo();
 };

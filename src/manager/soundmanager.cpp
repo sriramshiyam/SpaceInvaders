@@ -10,6 +10,9 @@ void SoundManager::Load()
     menuMusic.looping = true;
     gameMusic = LoadMusicStream("res/audio/game.mp3");
     gameMusic.looping = true;
+    enemyDestroyed = LoadSound("res/audio/enemy_destroyed.wav");
+    combo = LoadSound("res/audio/combo.wav");
+    SetSoundVolume(combo, 0.7f);
 }
 
 void SoundManager::UnLoad()
@@ -54,4 +57,14 @@ void SoundManager::UpdateCurrentMusicStream()
     {
         UpdateMusicStream(gameMusic);
     }
+}
+
+void SoundManager::PlayEnemyDestroyed()
+{
+    PlaySound(enemyDestroyed);
+}
+
+void SoundManager::PlayCombo()
+{
+    PlaySound(combo);
 }

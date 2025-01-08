@@ -5,6 +5,12 @@ Hud::Hud()
     spring.k = 0.3f;
     spring.damping = 0.6f;
     spring.restLength = 20.0f;
+    spring.velocity = 0.0f;
+    score = 0;
+    lives = 3;
+    maxCombo = 0;
+    wave = 0;
+    kills = 0;
 }
 
 void Hud::Load()
@@ -50,6 +56,28 @@ void Hud::UnLoad()
 
 void Hud::Update()
 {
+    HandleSpring();
+}
+
+void Hud::Draw()
+{
+    DrawTextEx(font, "SCORE", scoreLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(font, std::to_string(score).c_str(), scoreV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(font, "LIVES", livesLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(font, std::to_string(lives).c_str(), livesV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(font, "MAX COMBO", maxComboLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(font, std::to_string(maxCombo).c_str(), maxComboV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(font, "WAVE", waveLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(font, std::to_string(wave).c_str(), waveV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(font, "KILLS", killsLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(font, std::to_string(kills).c_str(), killsV, 60.0f, 3.0f, WHITE);
+}
+
+void Hud::HandleSpring()
+{
+    float x = scoreLabelV.x - spring.restLength;
+    spring.force = -spring.k * x;
+    spring.velocity += spring.force;
     scoreLabelV.x += spring.velocity;
     scoreV.x += spring.velocity;
     livesLabelV.x += spring.velocity;
@@ -60,27 +88,55 @@ void Hud::Update()
     waveV.x += spring.velocity;
     killsLabelV.x += spring.velocity;
     killsV.x += spring.velocity;
-    HandleSpring();
-}
-
-void Hud::Draw()
-{
-    DrawTextEx(font, "SCORE", scoreLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, "0", scoreV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "LIVES", livesLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, "3", livesV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "MAX COMBO", maxComboLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, "0", maxComboV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "WAVE", waveLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, "1", waveV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "KILLS", killsLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, "0", killsV, 60.0f, 3.0f, WHITE);
-}
-
-void Hud::HandleSpring()
-{
-    float x = scoreLabelV.x - spring.restLength;
-    spring.force = -spring.k * x;
-    spring.velocity += spring.force;
     spring.velocity *= spring.damping;
+}
+
+void Hud::SetScore(int score)
+{
+    this->score = score;
+}
+
+int Hud::GetScore()
+{
+    return score;
+}
+
+void Hud::SetLives(int lives)
+{
+    this->lives = lives;
+}
+
+int Hud::GetLives()
+{
+    return lives;
+}
+
+void Hud::SetMaxCombo(int maxCombo)
+{
+    this->maxCombo = maxCombo;
+}
+
+int Hud::GetMaxCombo()
+{
+    return maxCombo;
+}
+
+void Hud::SetWave(int wave)
+{
+    this->wave = wave;
+}
+
+int Hud::GetWave()
+{
+    return wave;
+}
+
+void Hud::SetKills(int kills)
+{
+    this->kills = kills;
+}
+
+int Hud::GetKills()
+{
+    return kills;
 }

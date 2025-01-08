@@ -29,4 +29,5 @@ public:
     static ComboManager *comboManager;
     static Player *player;
     static State state;
+    static void *hud;
 };

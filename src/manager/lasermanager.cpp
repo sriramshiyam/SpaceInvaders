@@ -3,6 +3,7 @@
 #include "manager/lasermanager.h"
 #include "sprite/enemy.h"
 #include "utils/globals.h"
+#include "ui/hud.h"
 
 void LaserManager::Load()
 {
@@ -66,6 +67,8 @@ void LaserManager::Update()
     {
         if ((*it).GetIsDestroyed())
         {
+            Hud *hud = reinterpret_cast<Hud *>(Globals::hud);
+            hud->SetKills(hud->GetKills() + 1);
             Globals::comboManager->AddCombo((*it).GetPosition());
             it = enemies->erase(it);
         }

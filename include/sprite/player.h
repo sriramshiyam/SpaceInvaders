@@ -10,13 +10,10 @@ private:
     Texture texture;
     Rectangle sourceTex;
     Vector2 position;
-
     Spring jumpSpring;
-
     float speed;
-
     int direction;
-
+    float shootTimer;
     void HandleJumpSpring();
 
 public:
