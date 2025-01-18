@@ -15,43 +15,40 @@ Hud::Hud()
 
 void Hud::Load()
 {
-    font = LoadFont("res/font/Vipnagorgialla_Bd.otf");
-
     float y = 0.0f;
     y += 40.0f;
     scoreLabelV = {-300.0f, y};
-    Vector2 boundRect = MeasureTextEx(font, "SCORE", 30.0f, 3.0f);
+    Vector2 boundRect = MeasureTextEx(Globals::font, "SCORE", 30.0f, 3.0f);
     y += boundRect.y;
     scoreV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "0", 60.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "0", 60.0f, 3.0f);
     y += boundRect.y + 20.0f;
     livesLabelV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "LIVES", 30.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "LIVES", 30.0f, 3.0f);
     y += boundRect.y;
     livesV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "3", 60.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "3", 60.0f, 3.0f);
     y += boundRect.y + 20.0f;
     maxComboLabelV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "MAX COMBO", 30.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "MAX COMBO", 30.0f, 3.0f);
     y += boundRect.y;
     maxComboV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "0", 60.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "0", 60.0f, 3.0f);
     y += boundRect.y + 20.0f;
     waveLabelV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "WAVE", 30.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "WAVE", 30.0f, 3.0f);
     y += boundRect.y;
     waveV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "1", 60.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "1", 60.0f, 3.0f);
     y += boundRect.y + 20.0f;
     killsLabelV = {-300.0f, y};
-    boundRect = MeasureTextEx(font, "KILLS", 30.0f, 3.0f);
+    boundRect = MeasureTextEx(Globals::font, "KILLS", 30.0f, 3.0f);
     y += boundRect.y;
     killsV = {-300.0f, y};
 }
 
 void Hud::UnLoad()
 {
-    UnloadFont(font);
 }
 
 void Hud::Update()
@@ -61,16 +58,16 @@ void Hud::Update()
 
 void Hud::Draw()
 {
-    DrawTextEx(font, "SCORE", scoreLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, std::to_string(score).c_str(), scoreV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "LIVES", livesLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, std::to_string(lives).c_str(), livesV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "MAX COMBO", maxComboLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, std::to_string(maxCombo).c_str(), maxComboV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "WAVE", waveLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, std::to_string(wave).c_str(), waveV, 60.0f, 3.0f, WHITE);
-    DrawTextEx(font, "KILLS", killsLabelV, 30.0f, 3.0f, WHITE);
-    DrawTextEx(font, std::to_string(kills).c_str(), killsV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, "SCORE", scoreLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, std::to_string(score).c_str(), scoreV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, "LIVES", livesLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, std::to_string(lives).c_str(), livesV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, "MAX COMBO", maxComboLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, std::to_string(maxCombo).c_str(), maxComboV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, "WAVE", waveLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, std::to_string(wave).c_str(), waveV, 60.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, "KILLS", killsLabelV, 30.0f, 3.0f, WHITE);
+    DrawTextEx(Globals::font, std::to_string(kills).c_str(), killsV, 60.0f, 3.0f, WHITE);
 }
 
 void Hud::HandleSpring()

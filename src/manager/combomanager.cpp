@@ -12,7 +12,6 @@ ComboManager::ComboManager()
 
 void ComboManager::Load()
 {
-    font = LoadFont("res/font/Vipnagorgialla_Bd.otf");
 }
 
 void ComboManager::UnLoad()
@@ -21,8 +20,6 @@ void ComboManager::UnLoad()
     {
         combos[i].UnLoad();
     }
-
-    UnloadFont(font);
 }
 
 void ComboManager::Update()
@@ -81,7 +78,6 @@ void ComboManager::AddCombo(Vector2 enemyPosition)
     {
         Globals::soundManager->PlayCombo();
         Combo combo(comboNumber);
-        combo.SetFont(font);
         combo.Load();
         combo.SetPosition(enemyPosition);
         combos.push_back(combo);

@@ -8,7 +8,6 @@ class SplashScreen : public Component
 {
 
 private:
-    Font font;
     float alpha;
 
 public:

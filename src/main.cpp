@@ -11,8 +11,10 @@ LaserManager *Globals::laserManager = nullptr;
 SoundManager *Globals::soundManager = nullptr;
 EnemyManager *Globals::enemyManager = nullptr;
 ComboManager *Globals::comboManager = nullptr;
+ExplosionManager *Globals::explosionManager = nullptr;
 Player *Globals::player = nullptr;
 void *Globals::hud = nullptr;
+Font Globals::font = Font();
 
 int main(void)
 {

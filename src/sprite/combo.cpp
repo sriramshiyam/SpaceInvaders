@@ -43,11 +43,11 @@ void Combo::HandleRotateSpring()
 
 void Combo::Load()
 {
-    Vector2 size1 = MeasureTextEx(font, "COMBO", 20.0f, 3.0f);
+    Vector2 size1 = MeasureTextEx(Globals::font, "COMBO", 20.0f, 3.0f);
     size1 = Vector2Add(size1, (Vector2){4, 0});
     comboWordTexture = LoadRenderTexture(size1.x, size1.y);
 
-    Vector2 size2 = comboNumber < 10 ? MeasureTextEx(font, "X0!", 20.0f, 3.0f) : MeasureTextEx(font, "X00!!", 20.0f, 3.0f);
+    Vector2 size2 = comboNumber < 10 ? MeasureTextEx(Globals::font, "X0!", 20.0f, 3.0f) : MeasureTextEx(Globals::font, "X00!!", 20.0f, 3.0f);
     size2 = Vector2Add(size2, (Vector2){4, 0});
     comboNumberTexture = LoadRenderTexture(size2.x, size2.y);
 
@@ -92,11 +92,6 @@ Vector2 Combo::GetPosition()
     return position;
 }
 
-void Combo::SetFont(Font font)
-{
-    this->font = font;
-}
-
 void Combo::RenderComboTexture()
 {
     colorChange += GetFrameTime() * 2;
@@ -105,7 +100,7 @@ void Combo::RenderComboTexture()
     BeginTextureMode(comboWordTexture);
     ClearBackground(ColorAlpha(BLACK, 0.0f));
     DrawRectangleRounded((Rectangle){0, 0, comboWordTexture.texture.width, comboWordTexture.texture.height}, 0.5f, 8, comboBgColor);
-    DrawTextEx(font, "COMBO", (Vector2){2, 0}, 20.0f, 3.0f, BLACK);
+    DrawTextEx(Globals::font, "COMBO", (Vector2){2, 0}, 20.0f, 3.0f, BLACK);
     EndTextureMode();
 
     std::string comboNumberText = comboNumber < 10 ? "X!" : "X!!";
@@ -113,7 +108,7 @@ void Combo::RenderComboTexture()
     ClearBackground(ColorAlpha(BLACK, 0.0f));
     DrawRectangleRounded((Rectangle){0, 0, comboNumberTexture.texture.width, comboNumberTexture.texture.height}, 0.5f, 8, comboBgColor);
     comboNumberText.insert(1, std::to_string(comboNumber));
-    DrawTextEx(font, comboNumberText.c_str(), (Vector2){2, 0}, 20.0f, 3.0f, BLACK);
+    DrawTextEx(Globals::font, comboNumberText.c_str(), (Vector2){2, 0}, 20.0f, 3.0f, BLACK);
     EndTextureMode();
 
     BeginTextureMode(comboTexture);

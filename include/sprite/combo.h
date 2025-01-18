@@ -13,7 +13,6 @@ private:
     RenderTexture comboWordTexture;
     RenderTexture comboNumberTexture;
     RenderTexture comboTexture;
-    Font font;
     float restTimer;
     float scale;
     float colorChange;
@@ -29,7 +28,6 @@ public:
     float GetRotation();
     void SetPosition(Vector2 position);
     Vector2 GetPosition();
-    void SetFont(Font font);
     void RenderComboTexture();
     RenderTexture GetComboTexture();
     float GetRestTimer();

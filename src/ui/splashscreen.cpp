@@ -9,12 +9,10 @@ SplashScreen::SplashScreen()
 
 void SplashScreen::Load()
 {
-    font = LoadFont("res/font/Vipnagorgialla_Bd.otf");
 }
 
 void SplashScreen::UnLoad()
 {
-    UnloadFont(font);
 }
 
 void SplashScreen::Update()
@@ -29,8 +27,8 @@ void SplashScreen::Update()
 
 void SplashScreen::Draw()
 {
-    Vector2 boundRect = MeasureTextEx(font, "MADE\nWITH", 40.0f, 3.0f);
-    DrawTextPro(font, "MADE\nWITH", {(float)Globals::canvasWidth / 2, (float)Globals::canvasHeight / 2}, {boundRect.x, boundRect.y / 2}, 0.0f, 40.0f, 3.0f, ColorAlpha(WHITE, alpha));
+    Vector2 boundRect = MeasureTextEx(Globals::font, "MADE\nWITH", 40.0f, 3.0f);
+    DrawTextPro(Globals::font, "MADE\nWITH", {(float)Globals::canvasWidth / 2, (float)Globals::canvasHeight / 2}, {boundRect.x, boundRect.y / 2}, 0.0f, 40.0f, 3.0f, ColorAlpha(WHITE, alpha));
 
     DrawRectangleV({(float)Globals::canvasWidth / 2 + 30, (float)Globals::canvasHeight / 2 - 75}, (Vector2){140, 10}, ColorAlpha(WHITE, alpha));
     DrawRectangleV({(float)Globals::canvasWidth / 2 + 20, (float)Globals::canvasHeight / 2 - 75}, (Vector2){10, 150}, ColorAlpha(WHITE, alpha));

@@ -11,7 +11,6 @@ private:
     std::vector<Combo> combos;
     int comboNumber;
     float comboTimer;
-    Font font;
 
 public:
     ComboManager();

@@ -17,8 +17,6 @@ class Game : public Component
 private:
     RenderTexture2D canvas;
     RenderTexture2D gameCanvas;
-    int previousWindowWidth;
-    int previousWindowHeight;
     Rectangle canvasDest;
     void ResizeCanvas(int screenWidth, int screenHeight);
 
@@ -30,6 +28,7 @@ private:
     SoundManager soundManager;
     EnemyManager enemyManager;
     ComboManager comboManager;
+    ExplosionManager explosionManager;
     Stars stars;
     Player player;
 

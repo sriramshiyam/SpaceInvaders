@@ -70,6 +70,7 @@ void LaserManager::Update()
             Hud *hud = reinterpret_cast<Hud *>(Globals::hud);
             hud->SetKills(hud->GetKills() + 1);
             Globals::comboManager->AddCombo((*it).GetPosition());
+            Globals::explosionManager->AddExplosion((*it).GetPosition());
             it = enemies->erase(it);
         }
         else

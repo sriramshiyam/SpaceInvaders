@@ -8,7 +8,6 @@
 class Hud : public Component
 {
 private:
-    Font font;
     Vector2 scoreLabelV;
     Vector2 scoreV;
     Vector2 livesLabelV;

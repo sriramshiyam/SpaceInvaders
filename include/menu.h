@@ -5,9 +5,6 @@
 
 class Menu : public Component
 {
-private:
-    Font font;
-
 public:
     void Load() override;
     void UnLoad() override;

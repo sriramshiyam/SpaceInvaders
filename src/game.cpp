@@ -4,9 +4,6 @@
 
 Game::Game() : Component()
 {
-    previousWindowWidth = 0;
-    previousWindowHeight = 0;
-
     Globals::canvasWidth = 1920;
     Globals::canvasHeight = 1080;
     Globals::gameWidth = 1400;
@@ -15,6 +12,7 @@ Game::Game() : Component()
     Globals::soundManager = &soundManager;
     Globals::enemyManager = &enemyManager;
     Globals::comboManager = &comboManager;
+    Globals::explosionManager = &explosionManager;
     Globals::player = &player;
     Globals::state = State::MENU;
     Globals::hud = &hud;
@@ -22,6 +20,7 @@ Game::Game() : Component()
 
 void Game::Load()
 {
+    Globals::font = LoadFont("res/font/Vipnagorgialla_Bd.otf");
     canvas = LoadRenderTexture(Globals::canvasWidth, Globals::canvasHeight);
     gameCanvas = LoadRenderTexture(Globals::gameWidth, Globals::gameHeight);
 
@@ -33,11 +32,13 @@ void Game::Load()
     soundManager.Load();
     enemyManager.Load();
     comboManager.Load();
+    explosionManager.Load();
     stars.Load();
 }
 
 void Game::UnLoad()
 {
+    UnloadFont(Globals::font);
     UnloadRenderTexture(canvas);
     UnloadRenderTexture(gameCanvas);
 
@@ -49,12 +50,13 @@ void Game::UnLoad()
     soundManager.UnLoad();
     enemyManager.UnLoad();
     comboManager.UnLoad();
+    explosionManager.UnLoad();
 }
 
 void Game::Update()
 {
     soundManager.UpdateCurrentMusicStream();
-    if (GetScreenWidth() != previousWindowWidth || GetScreenHeight() != previousWindowHeight)
+    if (IsWindowResized())
     {
         ResizeCanvas(GetScreenWidth(), GetScreenHeight());
     }
@@ -78,6 +80,7 @@ void Game::Update()
             hud.Update();
             enemyManager.Update();
             comboManager.Update();
+            explosionManager.Update();
         }
     }
 }
@@ -108,8 +111,8 @@ void Game::Draw()
         {
             enemyManager.Draw();
             comboManager.Draw();
+            explosionManager.Draw();
         }
-
         EndTextureMode();
     }
 
