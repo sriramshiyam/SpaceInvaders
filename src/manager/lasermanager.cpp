@@ -8,11 +8,13 @@
 void LaserManager::Load()
 {
     playerLaserTex = LoadTexture("res/sprite/player_laser.png");
+    enemyLaserTex = LoadTexture("res/sprite/enemy_laser.png");
 }
 
 void LaserManager::UnLoad()
 {
     UnloadTexture(playerLaserTex);
+    UnloadTexture(enemyLaserTex);
 }
 
 void LaserManager::Update()
@@ -21,6 +23,12 @@ void LaserManager::Update()
     {
         Vector2 velocity = Vector2Scale(playerLasers[i].GetVelocity(), GetFrameTime());
         playerLasers[i].SetPosition(Vector2Add(playerLasers[i].GetPosition(), velocity));
+    }
+
+    for (int i = 0; i < enemyLasers.size(); i++)
+    {
+        Vector2 velocity = Vector2Scale(enemyLasers[i].GetVelocity(), GetFrameTime());
+        enemyLasers[i].SetPosition(Vector2Add(enemyLasers[i].GetPosition(), velocity));
     }
 
     std::vector<Enemy> *enemies = Globals::enemyManager->GetEnemies();
@@ -32,17 +40,17 @@ void LaserManager::Update()
             continue;
         }
 
-        Rectangle rect1 = enemies->at(i).GetRectangle();
-        rect1.x -= rect1.width / 2;
-        rect1.y -= rect1.height / 2;
+        Rectangle enemyRect = enemies->at(i).GetRectangle();
+        enemyRect.x -= enemyRect.width / 2;
+        enemyRect.y -= enemyRect.height / 2;
 
         for (int j = 0; j < playerLasers.size(); j++)
         {
-            Rectangle rect2 = playerLasers[j].GetRectangle();
-            rect2.x -= rect2.width / 2;
-            rect2.y -= rect2.height / 2;
+            Rectangle laserRect = playerLasers[j].GetRectangle();
+            laserRect.x -= laserRect.width / 2;
+            laserRect.y -= laserRect.height / 2;
 
-            if (CheckCollisionRecs(rect1, rect2))
+            if (CheckCollisionRecs(enemyRect, laserRect))
             {
                 playerLasers[j].SetIsDestroyed(true);
                 enemies->at(i).SetIsDestroyed(true);
@@ -51,11 +59,42 @@ void LaserManager::Update()
         }
     }
 
+    Rectangle playerRect = Globals::player->GetRectangle();
+    playerRect.x -= playerRect.width / 2;
+    playerRect.y -= playerRect.height / 2;
+
+    for (int i = 0; i < enemyLasers.size(); i++)
+    {
+        Rectangle laserRect = enemyLasers[i].GetRectangle();
+        laserRect.x -= laserRect.width / 2;
+        laserRect.y -= laserRect.height / 2;
+
+        if (CheckCollisionRecs(playerRect, laserRect))
+        {
+            enemyLasers[i].SetIsDestroyed(true);
+            Hud *hud = reinterpret_cast<Hud *>(Globals::hud);
+            hud->SetLives(hud->GetLives() - 1);
+            Globals::player->SetIsAttacked(true);
+        }
+    }
+
     for (std::vector<Laser>::iterator it = playerLasers.begin(); it != playerLasers.end();)
     {
         if ((*it).GetIsDestroyed() || (*it).GetPosition().y <= -100.0f)
         {
             it = playerLasers.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
+
+    for (std::vector<EnemyLaser>::iterator it = enemyLasers.begin(); it != enemyLasers.end();)
+    {
+        if ((*it).GetIsDestroyed() || (*it).GetPosition().y > Globals::gameHeight)
+        {
+            it = enemyLasers.erase(it);
         }
         else
         {
@@ -87,6 +126,12 @@ void LaserManager::Draw()
         Rectangle rect = playerLasers[i].GetRectangle();
         DrawTexturePro(playerLaserTex, {0, 0, (float)playerLaserTex.width, (float)playerLaserTex.height}, rect, {rect.width / 2, rect.height / 2}, 0.0f, WHITE);
     }
+
+    for (int i = 0; i < enemyLasers.size(); i++)
+    {
+        Rectangle rect = enemyLasers[i].GetRectangle();
+        DrawTexturePro(enemyLaserTex, {0, 0, (float)enemyLaserTex.width, (float)enemyLaserTex.height}, rect, {rect.width / 2, rect.height / 2}, 0.0f, WHITE);
+    }
 }
 
 void LaserManager::AddPlayerLaser(Rectangle playerRect)
@@ -100,4 +145,29 @@ void LaserManager::AddPlayerLaser(Rectangle playerRect)
     laser.SetVelocity({0.0, -1250.0f});
 
     playerLasers.push_back(laser);
+}
+
+void LaserManager::AddEnemyLaser(std::vector<int> &enemyNumbers)
+{
+    std::vector<Enemy> *enemies = Globals::enemyManager->GetEnemies();
+
+    for (int i = 0; i < enemies->size(); i++)
+    {
+        for (int j = 0; j < enemyNumbers.size(); j++)
+        {
+            if (enemies->at(i).GetEnemyNumber() == enemyNumbers[j])
+            {
+                EnemyLaser laser;
+                Vector2 size = {enemyLaserTex.width, enemyLaserTex.height};
+                Rectangle rect = enemies->at(i).GetRectangle();
+                Vector2 position = {rect.x, rect.y};
+
+                laser.SetSize(size);
+                laser.SetPosition(position);
+                laser.SetVelocity({0.0, 400.0f});
+
+                enemyLasers.push_back(laser);
+            }
+        }
+    }
 }

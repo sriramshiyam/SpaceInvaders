@@ -25,10 +25,12 @@ private:
     int movingDownCounter;
     float rotation;
     float rotationTimer;
+    float shootLaserTimer;
 
     void initializeValues();
     void HandleSpawnGen();
     void MarkLastEnemy();
+    void ShootLasers();
 
 public:
     EnemyManager();

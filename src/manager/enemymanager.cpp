@@ -1,11 +1,13 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "utils/globals.h"
+#include "utils/random.h"
 #include "manager/enemymanager.h"
 #include "ui/hud.h"
 
 EnemyManager::EnemyManager()
 {
+    shootLaserTimer = 1.0f;
     initializeValues();
 }
 
@@ -31,6 +33,15 @@ void EnemyManager::Update()
     if (!finishedSpawing)
     {
         HandleSpawnGen();
+    }
+    else
+    {
+        shootLaserTimer -= GetFrameTime();
+        if (shootLaserTimer < 0.0f)
+        {
+            shootLaserTimer = 1.0f;
+            ShootLasers();
+        }
     }
 
     if (movingDownTimer > 0.0f)
@@ -116,7 +127,7 @@ void EnemyManager::Draw()
     {
         Rectangle rect = enemies[i].GetRectangle();
 
-        switch (enemies[i].GetEnemyNumber())
+        switch (enemies[i].GetRowNumber())
         {
         case 1:
             DrawTexturePro(texture1, {0, 0, (float)texture1.width, (float)texture1.height}, rect, {rect.width / 2, rect.height / 2}, rotation, WHITE);
@@ -149,11 +160,15 @@ void EnemyManager::LoadEnemies()
     hud->SetWave(hud->GetWave() + 1);
     initializeValues();
 
+    int enemyNumber = 0;
+
     for (int y = 0; y < 5; y++)
     {
         for (int x = 1; x <= 11; x++)
         {
             Enemy enemy;
+            enemy.SetEnemyNumber(enemyNumber);
+            enemyNumber++;
 
             if (y == 0 && x == 1)
             {
@@ -163,19 +178,19 @@ void EnemyManager::LoadEnemies()
             switch (y)
             {
             case 0:
-                enemy.SetEnemyNumber(1);
+                enemy.SetRowNumber(1);
                 break;
             case 1:
-                enemy.SetEnemyNumber(2);
+                enemy.SetRowNumber(2);
                 break;
             case 2:
-                enemy.SetEnemyNumber(3);
+                enemy.SetRowNumber(3);
                 break;
             case 3:
-                enemy.SetEnemyNumber(4);
+                enemy.SetRowNumber(4);
                 break;
             case 4:
-                enemy.SetEnemyNumber(2);
+                enemy.SetRowNumber(2);
                 break;
             default:
                 break;
@@ -266,4 +281,20 @@ void EnemyManager::MarkLastEnemy()
     }
 
     lastEnemy->SetIsLast(true);
+}
+
+void EnemyManager::ShootLasers()
+{
+    Hud *hud = reinterpret_cast<Hud *>(Globals::hud);
+
+    Random random;
+    int laserCount = random.GetRandomInt(1, 2 + hud->GetWave());
+    std::vector<int> enemyNumbers;
+
+    for (int i = 0; i < laserCount; i++)
+    {
+        enemyNumbers.push_back(random.GetRandomInt(0, 55 - 1));
+    }
+
+    Globals::laserManager->AddEnemyLaser(enemyNumbers);
 }

@@ -13,6 +13,7 @@ private:
     bool isSpawned;
     bool isLast;
     int enemyNumber;
+    int rowNumber;
 
 public:
     Enemy();
@@ -33,4 +34,6 @@ public:
     void SetIsLast(bool isLast);
     int GetEnemyNumber();
     void SetEnemyNumber(int enemyNumber);
+    int GetRowNumber();
+    void SetRowNumber(int rowNumber);
 };

@@ -41,7 +41,6 @@ void Game::UnLoad()
     UnloadFont(Globals::font);
     UnloadRenderTexture(canvas);
     UnloadRenderTexture(gameCanvas);
-
     splashScreen.UnLoad();
     menu.UnLoad();
     hud.UnLoad();
@@ -138,7 +137,6 @@ void Game::Draw()
     EndTextureMode();
 
     Rectangle canvasSource = {0.0f, 0.0f, (float)canvas.texture.width, -(float)canvas.texture.height};
-
     DrawTexturePro(canvas.texture, canvasSource, canvasDest, (Vector2){0, 0}, 0.0f, WHITE);
 }
 

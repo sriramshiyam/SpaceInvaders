@@ -91,3 +91,13 @@ void Enemy::SetEnemyNumber(int enemyNumber)
 {
     this->enemyNumber = enemyNumber;
 }
+
+int Enemy::GetRowNumber()
+{
+    return rowNumber;
+}
+
+void Enemy::SetRowNumber(int rowNumber)
+{
+    this->rowNumber = rowNumber;
+}

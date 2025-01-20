@@ -7,7 +7,7 @@ Explosion::Explosion(Vector2 position)
     this->position = position;
     alpha = 0.6f;
     gravity = 0.0f;
-    sparkSize = 5.0f;
+    sparkSize = 3.5f;
     LoadSmokes();
     LoadSparks();
 }

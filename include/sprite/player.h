@@ -7,6 +7,7 @@
 class Player : public Component
 {
 private:
+    Shader attackedShader;
     Texture texture;
     Rectangle sourceTex;
     Vector2 position;
@@ -14,7 +15,13 @@ private:
     float speed;
     int direction;
     float shootTimer;
+    bool isAttacked;
     void HandleJumpSpring();
+    void HandleAttackedState();
+
+    float attackedColorCount;
+    float attackedRadianValue;
+    bool canIncreaseAttackedColorCount;
 
 public:
     Player();
@@ -24,4 +31,5 @@ public:
     void Draw() override;
     int MovingDirection();
     Rectangle GetRectangle();
+    void SetIsAttacked(bool isAttacked);
 };
